@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phishing URL Detector</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Phishing URL Detector</h1>
+    <form method="POST" action="/predict">
+        <input type="text" name="url" placeholder="Enter a URL" required>
+        <label for="mode">Select Mode:</label>
+        <select name="mode" id="mode">
+            <option value="ml">Machine Learning</option>
+            <option value="ai">AI (Language Model)</option>
+            <option value="both">Both</option>
+        </select>
+        <button type="submit">Classify</button>
+    </form>
+
+    <div class="result">
+    {% if url %}
+        <h2>URL: {{ url }}</h2>
+        {% if result_ml %}
+        <p><strong>ML Result:</strong> {{ result_ml }}</p>
+        {% endif %}
+        {% if result_ai %}
+        <p><strong>AI Result:</strong></p>
+        <div style="border: 1px solid #ccc; padding: 10px; background-color: #f9f9f9;">
+            {{ result_ai|safe }}
+        </div>
+        {% endif %}
+    {% endif %}
+
+    {% if error %}
+        <h3 style="color: red;">{{ error }}</h3>
+    {% endif %}
+    </div>
+</body>
+</html>
